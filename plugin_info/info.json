@@ -1,0 +1,13 @@
+{
+	"id" : "deepstack",
+	"name" : "Deepstack",
+	"description" : "Ce plugin permet d'utiliser l'API d'une instance Deepstack et profiter de reconaissance d'images avec le machine learning.",
+	"licence" : "AGPL",
+	"author" : "lunarok",
+	"require" : "3.2",
+	"category" : "communication",
+	"language" : ["fr_FR","en_US"],
+	"compatibility" : ["miniplus","smart","rpi","docker","diy","mobile"],
+	"changelog" : "https://lunarok.github.io/jeedom_docs/plugins/deepstack/changelog.html",
+	"documentation" : "https://lunarok.github.io/jeedom_docs/plugins/deepstack/"
+}
