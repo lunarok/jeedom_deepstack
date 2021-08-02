@@ -20,14 +20,6 @@
 require_once dirname(__FILE__) . '/../../../../core/php/core.inc.php';
 
 class deepstack extends eqLogic {
-
-	public static function cron30() {
-		$eqLogics = eqLogic::byType('deepstack', true);
-		foreach ($eqLogics as $eqLogic) {
-			$eqLogic->refresh();
-		}
-	}
-
 	public function loadCmdFromConf($type) {
 		if (!is_file(dirname(__FILE__) . '/../config/devices/' . $type . '.json')) {
 			return;
@@ -58,74 +50,56 @@ class deepstack extends eqLogic {
 		}
 	}
 
-	public function postAjax() {
+	public function postSave() {
 		$this->loadCmdFromConf('deepstack');
 	}
 
-	public function preUpdate() {
-		if ($this->getConfiguration('api') == '') {
-			throw new Exception(__('Vous devez remplir le champ API',__FILE__));
-			return;
-		}
-		if ($this->getConfiguration('number') == '') {
-			throw new Exception(__('Vous devez remplir le numéro de la news',__FILE__));
-			return;
-		}
-		if ($this->getConfiguration('type') == 'top-headlines') {
-			if ($this->getConfiguration('country') == '') {
-				throw new Exception(__('Vous devez remplir le champ pays',__FILE__));
-				return;
-			}
+	public function callOpenData($_url, $_image, $_reference = '') {
+		$_url = $this->getConfiguration('url') . $_url;
+		log::add('deepstack', 'debug', 'Parse ' . $_url);
+		if ($_reference == '') {
+			$data['image'] = new CURLFile(realpath($_image));
 		} else {
-			if ($this->getConfiguration('language') == '') {
-				throw new Exception(__('Vous devez remplir le champ langue',__FILE__));
-				return;
-			}
+			$data['image1'] = new CURLFile(realpath($_reference));
+			$data['image2'] = new CURLFile(realpath($_image));
 		}
+		$request_http = new com_http($_url);
+    $request_http->setNoReportError(true);
+		$request_http->setPost($data);
+    $return = $request_http->exec(15,2);
+		log::add('deepstack', 'debug', 'Result ' . $return);
+		return json_decode($return, true);
 	}
 
-	public function getOptions() {
-		$options['q'] = $this->getConfiguration('q');
-		if ($this->getConfiguration('type') == 'top-headlines') {
-			$options['country'] = $this->getConfiguration('country');
-			if ($this->getConfiguration('category') != "none") {
-				$options['category'] = $this->getConfiguration('category');
-			} else {
-				$options['sources'] = $this->getConfiguration('sources');
-			}
-		} else {
-			$options['languages'] = $this->getConfiguration('languages');
-			$options['sources'] = $this->getConfiguration('sources');
-			$options['domains'] = $this->getConfiguration('domains');
-			$options['excludeDomains'] = $this->getConfiguration('excludeDomains');
-			$options['sortBy'] = $this->getConfiguration('sortBy');
-		}
-		return $options;
+	public function getSceneRecognition($_files) {
+		$data =$this->callOpenData('/v1/vision/scene', $_files[0]);
+		$this->checkAndUpdateCmd('getSceneRecognition:success', $data['success']);
+		$this->checkAndUpdateCmd('getSceneRecognition:confidence', $data['confidence']);
+		$this->checkAndUpdateCmd('getSceneRecognition:label', $data['label']);
 	}
 
-	public function refresh() {
-		$this->getInfos($this->getOptions());
+	public function getObjectDetection($_files) {
+		$data =$this->callOpenData('/v1/vision/detection', $_files[0]);
+		$this->checkAndUpdateCmd('getObjectDetection:success', $data['success']);
+		$this->checkAndUpdateCmd('getObjectDetection:predictions', $data['predictions']);
 	}
 
-	public function getInfos($_options) {
-		$url = 'https://deepstack.org/v2/' . $this->getConfiguration('type') . '?apiKey=' . $this->getConfiguration('api');
-		foreach ($_options as $key => $value) {
-			$url .= '&' . $key . '=' . $value;
-		}
-		$number = intval($this->getConfiguration('number')) - 1;
-		log::add('deepstack', 'debug', 'Ask ' . $url . ' for article ' . $number);
-		$request_http = new com_http($url);
-		$data = $request_http->exec(30);
-		$data = json_decode($data,true);
-		if ($data["status"] != 'ok') {
-			return;
-		}
-		$this->checkAndUpdateCmd('source', $data["articles"][$number]["source"]["name"]);
-		$this->checkAndUpdateCmd('title', $data["articles"][$number]["title"]);
-		$this->checkAndUpdateCmd('description', $data["articles"][$number]["description"]);
-		$this->checkAndUpdateCmd('url', $data["articles"][$number]["url"]);
-		$this->checkAndUpdateCmd('urlToImage', $data["articles"][$number]["urlToImage"]);
-		$this->checkAndUpdateCmd('content', $data["articles"][$number]["content"]);
+	public function getFaceMatch($_files) {
+		$data =$this->callOpenData('/v1/vision/face/match', $_files[0], $_files[1]);
+		$this->checkAndUpdateCmd('getFaceMatch:similarity', $data['similarity']);
+		$this->checkAndUpdateCmd('getFaceMatch:success', $data['success']);
+	}
+
+	public function getFaceDetection($_files) {
+		$data =$this->callOpenData('/v1/vision/face', $_files[0]);
+		$this->checkAndUpdateCmd('getFaceDetection:success', $data['success']);
+		$this->checkAndUpdateCmd('getFaceDetection:predictions', $data['predictions']);
+	}
+
+	public function getFaceRecognition($_files) {
+		$data =$this->callOpenData('/v1/vision/face/recognize', $_files[0]);
+		$this->checkAndUpdateCmd('getFaceRecognition:success', $data['success']);
+		$this->checkAndUpdateCmd('getFaceRecognition:predictions', $data['predictions']);
 	}
 
 }
@@ -133,18 +107,22 @@ class deepstack extends eqLogic {
 class deepstackCmd extends cmd {
 	public function execute($_options = null) {
 		$eqLogic = $this->getEqLogic();
-		if ($this->getLogicalId() == 'refresh') {
-			$eqLogic->refresh();
-		}
-		if ($this->getLogicalId() == 'options') {
-			if (isset($_options['title'])) {
-				$options1 = $eqLogic->getOptions();
-				$options2 = arg2array($_options['title']);
-				$options = array_merge($options1, $options2);
-			} else {
-				return false;
-			}
-			$eqLogic->getInfos($options);
+		switch ($this->getLogicalId()) {
+			case 'getFaceRecognition':
+				$eqLogic->getFaceRecognition($_options['files']);
+				break;
+			case 'getFaceDetection':
+				$eqLogic->getFaceDetection($_options['files']);
+				break;
+			case 'getFaceMatch':
+				$eqLogic->getFaceMatch($_options['files']);
+				break;
+			case 'getObjectDetection':
+				$eqLogic->getObjectDetection($_options['files']);
+				break;
+			case 'getSceneRecognition':
+				$eqLogic->getSceneRecognition($_options['files']);
+				break;
 		}
 	}
 }

@@ -9,10 +9,9 @@ $eqLogics = eqLogic::byType('deepstack');
 ?>
 
 <div class="row row-overflow">
-  <div class="col-lg-2 col-sm-3 col-sm-4">
+  <div class="col-lg-2 col-sm-3 col-sm-4" id="hidCol" style="display: none;">
     <div class="bs-sidebar">
       <ul id="ul_eqLogic" class="nav nav-list bs-sidenav">
-        <a class="btn btn-default eqLogicAction" style="width : 100%;margin-top : 5px;margin-bottom: 5px;" data-action="add"><i class="fas fa-plus-circle"></i> {{Ajouter un équipement}}</a>
         <li class="filter" style="margin-bottom: 5px;"><input class="filter form-control input-sm" placeholder="{{Rechercher}}" style="width: 100%"/></li>
         <?php
         foreach ($eqLogics as $eqLogic) {
@@ -23,15 +22,29 @@ $eqLogics = eqLogic::byType('deepstack');
     </div>
   </div>
 
-  <div class="col-lg-10 col-md-9 col-sm-8 eqLogicThumbnailDisplay" style="border-left: solid 1px #EEE; padding-left: 25px;">
-    <legend><i class="fas fa-home"></i> {{Mes Nouvelles}}</legend>
+  <div class="col-lg-12 eqLogicThumbnailDisplay" id="listCol">
+
+    <legend><i class="fas fa-cog"></i>  {{Gestion}}</legend>
     <div class="eqLogicThumbnailContainer">
-      <div class="cursor eqLogicAction" data-action="add" style="background-color : #ffffff; height : 200px;margin-bottom : 10px;padding : 5px;border-radius: 2px;width : 160px;margin-left : 10px;" >
-          <center>
-              <i class="fas fa-plus-circle" style="font-size : 7em;color:#00979c;"></i>
-          </center>
-          <span style="font-size : 1.1em;position:relative; top : 15px;word-break: break-all;white-space: pre-wrap;word-wrap: break-word;"><center>{{Ajouter}}</center></span>
+
+      <div class="cursor eqLogicAction logoSecondary" data-action="gotoPluginConf">
+          <i class="fas fa-wrench"></i>
+          <br/>
+        <span>{{Configuration}}</span>
       </div>
+      <div class="cursor eqLogicAction logoSecondary" data-action="add">
+          <i class="fas fa-plus-circle"></i>
+          <br/>
+        <span>Ajouter</span>
+      </div>
+
+    </div>
+
+    <input class="form-control" placeholder="{{Rechercher}}" id="in_searchEqlogic" />
+
+
+    <legend><i class="fas fa-home" id="butCol"></i>  {{Mes Equipements}}</legend>
+    <div class="eqLogicThumbnailContainer">
       <?php
       foreach ($eqLogics as $eqLogic) {
         $opacity = ($eqLogic->getIsEnable()) ? '' : jeedom::getConfiguration('eqLogic:style:noactive');
@@ -60,7 +73,7 @@ $eqLogics = eqLogic::byType('deepstack');
         <form class="form-horizontal">
           <fieldset>
             <div class="form-group">
-              <label class="col-sm-3 control-label">{{Nom de la nouvelle}}</label>
+              <label class="col-sm-3 control-label">{{Nom de l'équipement}}</label>
               <div class="col-sm-3">
                 <input type="text" class="eqLogicAttr form-control" data-l1key="id" style="display : none;" />
                 <input type="text" class="eqLogicAttr form-control" data-l1key="name" placeholder="{{Nom de l'équipement deepstack}}"/>
@@ -72,7 +85,7 @@ $eqLogics = eqLogic::byType('deepstack');
                 <select class="form-control eqLogicAttr" data-l1key="object_id">
                   <option value="">{{Aucun}}</option>
                   <?php
-                  foreach (object::all() as $object) {
+                  foreach (jeeObject::all() as $object) {
                     echo '<option value="' . $object->getId() . '">' . $object->getName() . '</option>';
                   }
                   ?>
@@ -101,91 +114,9 @@ $eqLogics = eqLogic::byType('deepstack');
             </div>
 
             <div class="form-group">
-              <label class="col-sm-3 control-label"><a href='https://deepstack.org/register' target="_blank">{{Clef API}}</a></label>
-              <div class="col-sm-8">
-                <input type="text" class="eqLogicAttr form-control" data-l1key="configuration" data-l2key="api" placeholder="{{Clef API}}"/>
-              </div>
-            </div>
-
-            <div class="form-group">
-							<label class="col-sm-3 control-label">{{Type}}</label>
-							<div class="col-sm-8">
-								<select class="eqLogicAttr form-control" data-l1key="configuration" data-l2key="type" id="type">
-									<option value="top-headlines" selected>Gros Titres</option>
-									<option value="everything">Toutes News</option>
-								</select>
-							</div>
-						</div>
-
-            <div class="form-group">
-              <label class="col-sm-3 control-label">{{Numéro de la News à récupérer}}</label>
-              <div class="col-sm-8">
-                <input type="text" class="eqLogicAttr form-control" data-l1key="configuration" data-l2key="number" placeholder="{{Exemple : 1 pour la plus récente, 2 pour la seconde ...}}"/>
-              </div>
-            </div>
-
-            <div class="form-group" id="country">
-              <label class="col-sm-3 control-label">{{Pays}}</label>
-              <div class="col-sm-8">
-                <input type="text" class="eqLogicAttr form-control" data-l1key="configuration" data-l2key="country" placeholder="{{Le code international à 2 lettres du Pays}}"/>
-              </div>
-            </div>
-
-            <div class="form-group" id="language">
-              <label class="col-sm-3 control-label">{{Langue}}</label>
-              <div class="col-sm-8">
-                <input type="text" class="eqLogicAttr form-control" data-l1key="configuration" data-l2key="languages" placeholder="{{Le code international à 2 lettres du Pays}}"/>
-              </div>
-            </div>
-
-            <div class="form-group" id="category">
-              <label class="col-sm-3 control-label">{{Catégorie}}</label>
-              <div class="col-sm-8">
-                <select class="form-control eqLogicAttr" data-l1key="configuration" data-l2key="category">
-                  <option value="none">{{Aucune}}</option>
-                  <option value="business">{{Business}}</option>
-                  <option value="entertainment">{{Divertissement}}</option>
-                  <option value="general">{{Générale}}</option>
-                  <option value="health">{{Santé}}</option>
-                  <option value="science">{{Science}}</option>
-                  <option value="sports">{{Sports}}</option>
-                  <option value="technology">{{Technologie}}</option>
-                </select>
-              </div>
-            </div>
-
-            <div class="form-group" id="sources">
-              <label class="col-sm-3 control-label">{{Sources}}</label>
-              <div class="col-sm-8">
-                <input type="text" class="eqLogicAttr form-control" data-l1key="configuration" data-l2key="sources" placeholder="{{Voir la liste des Sources dans la doc}}"/>
-              </div>
-            </div>
-
-            <div class="form-group" id="keyword">
-              <label class="col-sm-3 control-label">{{Mot Clef}}</label>
-              <div class="col-sm-8">
-                <input type="text" class="eqLogicAttr form-control" data-l1key="configuration" data-l2key="q" placeholder="{{Exemple : domotique}}"/>
-              </div>
-            </div>
-
-            <div class="form-group" id="domains">
-              <label class="col-sm-3 control-label">{{Domaines}}</label>
-              <div class="col-sm-8">
-                <input type="text" class="eqLogicAttr form-control" data-l1key="configuration" data-l2key="domains" placeholder="{{Exemple : techcrunch.com}}"/>
-              </div>
-            </div>
-
-            <div class="form-group" id="excludeDomains">
-              <label class="col-sm-3 control-label">{{Domaines Exclus}}</label>
-              <div class="col-sm-8">
-                <input type="text" class="eqLogicAttr form-control" data-l1key="configuration" data-l2key="excludeDomains" placeholder="{{Exemple : techcrunch.com}}"/>
-              </div>
-            </div>
-
-            <div class="form-group" id="sortBy">
-              <label class="col-sm-3 control-label">{{Classement Par}}</label>
-              <div class="col-sm-8">
-                <input type="text" class="eqLogicAttr form-control" data-l1key="configuration" data-l2key="sortBy" placeholder="{{Exemple : relevancy, popularity, publishedAt}}"/>
+              <label class="col-sm-3 control-label">{{Adresse du DeepStack à utiliser}}</label>
+              <div class="col-sm-3">
+                <input type="text"  class="eqLogicAttr form-control" data-l1key="configuration" data-l2key="url" />
               </div>
             </div>
 

@@ -1,7 +1,0 @@
-http://localhost:80/v1/vision/face/register
-http://localhost:80/v1/vision/face
-http://localhost:80/v1/vision/face/match
-http://localhost:80/v1/vision/detection
-http://localhost:80/v1/vision/scene
-
-https://nodejs.deepstack.cc/
