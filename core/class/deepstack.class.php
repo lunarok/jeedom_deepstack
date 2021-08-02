@@ -107,21 +107,26 @@ class deepstack extends eqLogic {
 class deepstackCmd extends cmd {
 	public function execute($_options = null) {
 		$eqLogic = $this->getEqLogic();
+		if ($_options['title'] == '') {
+			$images = $_options['files'];
+		} else {
+			$images = explode(',',$_options['title']);
+		}
 		switch ($this->getLogicalId()) {
 			case 'getFaceRecognition':
-				$eqLogic->getFaceRecognition($_options['files']);
+				$eqLogic->getFaceRecognition($images);
 				break;
 			case 'getFaceDetection':
-				$eqLogic->getFaceDetection($_options['files']);
+				$eqLogic->getFaceDetection($images);
 				break;
 			case 'getFaceMatch':
-				$eqLogic->getFaceMatch($_options['files']);
+				$eqLogic->getFaceMatch($images);
 				break;
 			case 'getObjectDetection':
-				$eqLogic->getObjectDetection($_options['files']);
+				$eqLogic->getObjectDetection($images);
 				break;
 			case 'getSceneRecognition':
-				$eqLogic->getSceneRecognition($_options['files']);
+				$eqLogic->getSceneRecognition($images);
 				break;
 		}
 	}

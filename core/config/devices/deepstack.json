@@ -1,485 +1,120 @@
 {
   "commands": [
     {
-      "name": "Online",
+      "name": "Face Recognition : Success",
       "type": "info",
       "subtype": "binary",
-      "logicalId": "online"
+      "logicalId": "getFaceRecognition:success"
     },
     {
-      "name": "Mute",
-      "type": "info",
-      "subtype": "binary",
-      "logicalId": "audio:muted"
-    },
-    {
-      "name": "Volume",
-      "type": "info",
-      "subtype": "numeric",
-      "logicalId": "audio:volume"
-    },
-    {
-      "name": "Batterie binary",
-      "type": "info",
-      "subtype": "binary",
-      "logicalId": "battery:hasBattery"
-    },
-    {
-      "name": "Batterie en charge",
-      "type": "info",
-      "subtype": "binary",
-      "logicalId": "battery:isCharging"
-    },
-    {
-      "name": "Batterie",
-      "type": "info",
-      "subtype": "numeric",
-      "logicalId": "battery:percent"
-    },
-    {
-      "name": "Batterie restante",
+      "name": "Face Recognition : Predictions",
       "type": "info",
       "subtype": "string",
-      "logicalId": "battery:timeRemaining"
+      "logicalId": "getFaceRecognition:predictions"
     },
     {
-      "name": "CPU Vitesse",
-      "type": "info",
-      "subtype": "numeric",
-      "logicalId": "cpu:speed"
-    },
-    {
-      "name": "CPU Vitesse Min",
-      "type": "info",
-      "subtype": "numeric",
-      "logicalId": "cpu:speedMin"
-    },
-    {
-      "name": "CPU Vitesse Max",
-      "type": "info",
-      "subtype": "numeric",
-      "logicalId": "cpu:speedMax"
-    },
-    {
-      "name": "CPU Nombre de cores",
-      "type": "info",
-      "subtype": "numeric",
-      "logicalId": "cpu:cores"
-    },
-    {
-      "name": "Filesystem 1 Nom",
-      "type": "info",
-      "subtype": "string",
-      "logicalId": "filesystem:1:name"
-    },
-    {
-      "name": "Filesystem 1 FS",
-      "type": "info",
-      "subtype": "string",
-      "logicalId": "filesystem:1:fs"
-    },
-    {
-      "name": "Filesystem 1 Taille",
-      "type": "info",
-      "subtype": "numeric",
-      "logicalId": "filesystem:1:size"
-    },
-    {
-      "name": "Filesystem 1 Utilisé",
-      "type": "info",
-      "subtype": "numeric",
-      "logicalId": "filesystem:1:use"
-    },
-    {
-      "name": "Filesystem 1 Montage",
-      "type": "info",
-      "subtype": "string",
-      "logicalId": "filesystem:1:mount"
-    },
-    {
-      "name": "Filesystem 1 Type",
-      "type": "info",
-      "subtype": "string",
-      "logicalId": "filesystem:1:type"
-    },
-    {
-      "name": "Filesystem 2 Nom",
-      "type": "info",
-      "subtype": "string",
-      "logicalId": "filesystem:2:name"
-    },
-    {
-      "name": "Filesystem 2 FS",
-      "type": "info",
-      "subtype": "string",
-      "logicalId": "filesystem:2:fs"
-    },
-    {
-      "name": "Filesystem 2 Taille",
-      "type": "info",
-      "subtype": "numeric",
-      "logicalId": "filesystem:2:size"
-    },
-    {
-      "name": "Filesystem 2 Utilisé",
-      "type": "info",
-      "subtype": "numeric",
-      "logicalId": "filesystem:2:use"
-    },
-    {
-      "name": "Filesystem 2 Montage",
-      "type": "info",
-      "subtype": "string",
-      "logicalId": "filesystem:2:mount"
-    },
-    {
-      "name": "Filesystem 2 Type",
-      "type": "info",
-      "subtype": "string",
-      "logicalId": "filesystem:2:type"
-    },
-    {
-      "name": "Filesystem 3 Nom",
-      "type": "info",
-      "subtype": "string",
-      "logicalId": "filesystem:3:name"
-    },
-    {
-      "name": "Filesystem 3 FS",
-      "type": "info",
-      "subtype": "string",
-      "logicalId": "filesystem:3:fs"
-    },
-    {
-      "name": "Filesystem 3 Taille",
-      "type": "info",
-      "subtype": "numeric",
-      "logicalId": "filesystem:3:size"
-    },
-    {
-      "name": "Filesystem 3 Utilisé",
-      "type": "info",
-      "subtype": "numeric",
-      "logicalId": "filesystem:3:use"
-    },
-    {
-      "name": "Filesystem 3 Montage",
-      "type": "info",
-      "subtype": "string",
-      "logicalId": "filesystem:3:mount"
-    },
-    {
-      "name": "Filesystem 3 Type",
-      "type": "info",
-      "subtype": "string",
-      "logicalId": "filesystem:3:type"
-    },
-    {
-      "name": "Mémoire Totale",
-      "type": "info",
-      "subtype": "numeric",
-      "logicalId": "memory:total"
-    },
-    {
-      "name": "Mémoire Libre",
-      "type": "info",
-      "subtype": "numeric",
-      "logicalId": "memory:free"
-    },
-    {
-      "name": "Mémoire Utilisée",
-      "type": "info",
-      "subtype": "numeric",
-      "logicalId": "memory:used"
-    },
-    {
-      "name": "Mémoire Active",
-      "type": "info",
-      "subtype": "numeric",
-      "logicalId": "memory:active"
-    },
-    {
-      "name": "Mémoire Disponible",
-      "type": "info",
-      "subtype": "numeric",
-      "logicalId": "memory:available"
-    },
-    {
-      "name": "Swap Total",
-      "type": "info",
-      "subtype": "numeric",
-      "logicalId": "memory:swaptotal"
-    },
-    {
-      "name": "Swap Utiisée",
-      "type": "info",
-      "subtype": "numeric",
-      "logicalId": "memory:swapused"
-    },
-    {
-      "name": "Réseau Gateway par défaut",
-      "type": "info",
-      "subtype": "string",
-      "logicalId": "network:gatewayDefault"
-    },
-    {
-      "name": "Réseau Interface par défaut",
-      "type": "info",
-      "subtype": "string",
-      "logicalId": "network:interfaceDefault"
-    },
-    {
-      "name": "Réseau 1 Nom",
-      "type": "info",
-      "subtype": "string",
-      "logicalId": "network:1:name"
-    },
-    {
-      "name": "Réseau 1 Iface",
-      "type": "info",
-      "subtype": "string",
-      "logicalId": "network:1:iface"
-    },
-    {
-      "name": "Réseau 1 ip4",
-      "type": "info",
-      "subtype": "string",
-      "logicalId": "network:1:ip4"
-    },
-    {
-      "name": "Réseau 1 ip6",
-      "type": "info",
-      "subtype": "string",
-      "logicalId": "network:1:ip6"
-    },
-    {
-      "name": "Réseau 1 Statut",
-      "type": "info",
-      "subtype": "binary",
-      "logicalId": "network:1:operstate"
-    },
-    {
-      "name": "Réseau 1 Type",
-      "type": "info",
-      "subtype": "string",
-      "logicalId": "network:1:type"
-    },
-    {
-      "name": "Réseau 2 Nom",
-      "type": "info",
-      "subtype": "string",
-      "logicalId": "network:2:name"
-    },
-    {
-      "name": "Réseau 2 Iface",
-      "type": "info",
-      "subtype": "string",
-      "logicalId": "network:2:iface"
-    },
-    {
-      "name": "Réseau 2 ip4",
-      "type": "info",
-      "subtype": "string",
-      "logicalId": "network:2:ip4"
-    },
-    {
-      "name": "Réseau 2 ip6",
-      "type": "info",
-      "subtype": "string",
-      "logicalId": "network:2:ip6"
-    },
-    {
-      "name": "Réseau 2 Statut",
-      "type": "info",
-      "subtype": "binary",
-      "logicalId": "network:2:operstate"
-    },
-    {
-      "name": "Réseau 2 Type",
-      "type": "info",
-      "subtype": "string",
-      "logicalId": "network:2:type"
-    },
-    {
-      "name": "OS Nom",
-      "type": "info",
-      "subtype": "string",
-      "logicalId": "os:distro"
-    },
-    {
-      "name": "OS Hostname",
-      "type": "info",
-      "subtype": "string",
-      "logicalId": "os:hostname"
-    },
-    {
-      "name": "OS FQDN",
-      "type": "info",
-      "subtype": "string",
-      "logicalId": "os:fqdn"
-    },
-    {
-      "name": "Processes avgLoad",
-      "type": "info",
-      "subtype": "string",
-      "logicalId": "processes:avgLoad"
-    },
-    {
-      "name": "Processes currentLoad",
-      "type": "info",
-      "subtype": "string",
-      "logicalId": "processes:currentLoad"
-    },
-    {
-      "name": "Processes currentLoadUser",
-      "type": "info",
-      "subtype": "string",
-      "logicalId": "processes:currentLoadUser"
-    },
-    {
-      "name": "Processes currentLoadSystem",
-      "type": "info",
-      "subtype": "string",
-      "logicalId": "processes:currentLoadSystem"
-    },
-    {
-      "name": "Processes currentLoadNice",
-      "type": "info",
-      "subtype": "string",
-      "logicalId": "processes:currentLoadNice"
-    },
-    {
-      "name": "Processes currentLoadIdle",
-      "type": "info",
-      "subtype": "string",
-      "logicalId": "processes:currentLoadIdle"
-    },
-    {
-      "name": "Processes currentLoadIrq",
-      "type": "info",
-      "subtype": "string",
-      "logicalId": "processes:currentLoadIrq"
-    },
-    {
-      "name": "Refresh",
-      "type": "action",
-      "subtype": "other",
-      "logicalId": "refresh"
-    },
-    {
-      "name": "Mute Off",
-      "type": "action",
-      "subtype": "other",
-      "configuration" : {
-        "request" : "/audio/mute",
-        "argument" : "value",
-        "value" : false
-      },
-      "logicalId": "audio:muteOff"
-    },
-    {
-      "name": "Mute On",
-      "type": "action",
-      "subtype": "other",
-      "configuration" : {
-        "request" : "/audio/mute",
-        "argument" : "value",
-        "value" : true
-      },
-      "logicalId": "audio:muteOn"
-    },
-    {
-      "name": "Play",
-      "type": "action",
-      "subtype": "other",
-      "configuration" : {
-        "request" : "/audio/play",
-        "argument" : "value",
-        "value" : true
-      },
-      "logicalId": "audio:play"
-    },
-    {
-      "name": "Pause",
-      "type": "action",
-      "subtype": "other",
-      "configuration" : {
-        "request" : "/audio/pause",
-        "argument" : "value",
-        "value" : true
-      },
-      "logicalId": "audio:pause"
-    },
-    {
-      "name": "Stop",
-      "type": "action",
-      "subtype": "other",
-      "configuration" : {
-        "request" : "/audio/stop",
-        "argument" : "value",
-        "value" : true
-      },
-      "logicalId": "audio:stop"
-    },
-    {
-      "name": "Volume",
-      "type": "action",
-      "subtype": "slider",
-      "configuration" : {
-        "request" : "/audio/volume",
-        "argument" : "value",
-        "minValue" : 0,
-        "maxValue" : 100
-      },
-      "logicalId": "audio:volume"
-    },
-    {
-      "name": "Commande",
+      "name": "Face Recognition",
       "type": "action",
       "subtype": "message",
       "configuration" : {
-        "request" : "/command",
-        "title_placeholder" : "Commande",
-        "message_placeholder" : "Argument",
-        "argument" : "command"
+        "title_placeholder" : "Image",
+        "message_disable" : 1
       },
-      "logicalId": "audio:command"
+      "logicalId": "getFaceRecognition"
     },
     {
-      "name": "Ouvrir",
+      "name": "Face Detection : Success",
+      "type": "info",
+      "subtype": "binary",
+      "logicalId": "getFaceDetection:success"
+    },
+    {
+      "name": "Face Detection : Predictions",
+      "type": "info",
+      "subtype": "string",
+      "logicalId": "getFaceDetection:predictions"
+    },
+    {
+      "name": "Face Detection",
       "type": "action",
       "subtype": "message",
       "configuration" : {
-        "request" : "/open",
-        "title_placeholder" : "Fichier à ouvrir",
-        "message_disable" : 1,
-        "argument" : "path"
+        "title_placeholder" : "Image",
+        "message_disable" : 1
       },
-      "logicalId": "audio:open"
+      "logicalId": "getFaceDetection"
     },
     {
-      "name": "Envoi touche",
+      "name": "Face Match : Success",
+      "type": "info",
+      "subtype": "binary",
+      "logicalId": "getFaceMatch:success"
+    },
+    {
+      "name": "Face Match : Similarity",
+      "type": "info",
+      "subtype": "string",
+      "logicalId": "getFaceMatch:similarity"
+    },
+    {
+      "name": "Face Match",
       "type": "action",
       "subtype": "message",
       "configuration" : {
-        "request" : "/keyboard",
-        "title_placeholder" : "Touche à émettre",
-        "message_disable" : 1,
-        "argument" : "key"
+        "title_placeholder" : "Image",
+        "message_disable" : 1
       },
-      "logicalId": "audio:keyboard"
+      "logicalId": "getFaceMatch"
     },
     {
-      "name": "Envoi notification",
+      "name": "Object Detection : Success",
+      "type": "info",
+      "subtype": "binary",
+      "logicalId": "getObjectDetection:success"
+    },
+    {
+      "name": "Object Detection : Predictions",
+      "type": "info",
+      "subtype": "string",
+      "logicalId": "getObjectDetection:predictions"
+    },
+    {
+      "name": "Object Detection",
       "type": "action",
       "subtype": "message",
       "configuration" : {
-        "request" : "/notification",
-        "title_placeholder" : "Titre",
-        "message_placeholder" : "Message et icone",
-        "argument" : "title"
+        "title_placeholder" : "Image",
+        "message_disable" : 1
       },
-      "logicalId": "audio:notification"
+      "logicalId": "getObjectDetection"
+    },
+    {
+      "name": "Scene Recognition : Success",
+      "type": "info",
+      "subtype": "binary",
+      "logicalId": "getSceneRecognition:success"
+    },
+    {
+      "name": "Scene Recognition : Label",
+      "type": "info",
+      "subtype": "string",
+      "logicalId": "getSceneRecognition:label"
+    },
+    {
+      "name": "Scene Recognition : Confidence",
+      "type": "info",
+      "subtype": "numeric",
+      "logicalId": "getSceneRecognition:confidence"
+    },
+    {
+      "name": "Scene Recognition",
+      "type": "action",
+      "subtype": "message",
+      "configuration" : {
+        "title_placeholder" : "Image",
+        "message_disable" : 1
+      },
+      "logicalId": "getSceneRecognition"
     }
   ]
 }
