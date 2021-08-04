@@ -73,8 +73,13 @@ class deepstack extends eqLogic {
     curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
     $return = curl_exec($ch);
     $httpCode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
+		$last_url = curl_getinfo($ch, CURLINFO_EFFECTIVE_URL);
     curl_close($ch);
-		log::add('deepstack', 'debug', 'Result ' . $httpCode . ' ' . $return);
+		if ($httpCode != '200') {
+			log::add('deepstack', 'debug', 'Error ' . $httpCode . ' ' . $last_url);
+		} else {
+			log::add('deepstack', 'debug', 'Result ' . $return);
+		}
 		return json_decode($return, true);
 	}
 
