@@ -70,8 +70,9 @@ class deepstack extends eqLogic {
 		curl_setopt($curl, CURLOPT_HTTPHEADER, array( 'Content-Type: multipart/form-data' ));
 		curl_setopt($curl, CURLOPT_POST, true);
 		curl_setopt($curl, CURLOPT_POSTFIELDS, $data);
-    curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
 		curl_setopt($curl, CURLOPT_FOLLOWLOCATION, true);
+		curl_setopt($curl, CURLOPT_FRESH_CONNECT, true);
+		curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
     $return = curl_exec($curl);
     $httpCode = curl_getinfo($curl, CURLINFO_HTTP_CODE);
 		$last_url = curl_getinfo($curl, CURLINFO_EFFECTIVE_URL);
