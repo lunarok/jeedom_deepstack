@@ -71,7 +71,6 @@ class deepstack extends eqLogic {
 		curl_setopt($curl, CURLOPT_POST, true);
 		curl_setopt($curl, CURLOPT_POSTFIELDS, $data);
 		curl_setopt($curl, CURLOPT_FOLLOWLOCATION, true);
-		curl_setopt($curl, CURLOPT_FRESH_CONNECT, true);
 		curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
     $return = curl_exec($curl);
     $httpCode = curl_getinfo($curl, CURLINFO_HTTP_CODE);
@@ -81,7 +80,7 @@ class deepstack extends eqLogic {
 			log::add('deepstack', 'debug', 'Error ' . $httpCode . ' ' . $last_url);
 		} else {
 			log::add('deepstack', 'debug', 'Result ' . $return);
-		}*/
+		}
 		/*if ($_reference == '') {
 			$data = 'image=@' . $_image;
 		} else {
