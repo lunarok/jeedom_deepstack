@@ -65,17 +65,17 @@ class deepstack extends eqLogic {
 			$data['image2'] = new CURLFile(realpath($_image));
 			log::add('deepstack', 'debug', 'Image reference ' . $_reference);
 		}
-		$ch = curl_init();
-    curl_setopt($ch, CURLOPT_URL, $_url);
-		curl_setopt($ch, CURLOPT_HTTPHEADER, array( 'Content-Type: multipart/form-data' ));
-		curl_setopt($ch, CURLOPT_POST, true);
-		curl_setopt($ch, CURLOPT_POSTFIELDS, $data);
-    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+		$curl = curl_init();
+    curl_setopt($curl, CURLOPT_URL, $_url);
+		curl_setopt($curl, CURLOPT_HTTPHEADER, array( 'Content-Type: multipart/form-data' ));
+		curl_setopt($curl, CURLOPT_POST, true);
+		curl_setopt($curl, CURLOPT_POSTFIELDS, $data);
+    curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
 		curl_setopt($curl, CURLOPT_FOLLOWLOCATION, true);
-    $return = curl_exec($ch);
-    $httpCode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
-		$last_url = curl_getinfo($ch, CURLINFO_EFFECTIVE_URL);
-    curl_close($ch);
+    $return = curl_exec($curl);
+    $httpCode = curl_getinfo($curl, CURLINFO_HTTP_CODE);
+		$last_url = curl_getinfo($curl, CURLINFO_EFFECTIVE_URL);
+    curl_close($curl);
 		if ($httpCode != '200') {
 			log::add('deepstack', 'debug', 'Error ' . $httpCode . ' ' . $last_url);
 		} else {
