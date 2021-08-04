@@ -56,12 +56,14 @@ class deepstack extends eqLogic {
 
 	public function callOpenData($_url, $_image, $_reference = '') {
 		$_url = $this->getConfiguration('url') . $_url;
-		log::add('deepstack', 'debug', 'Parse ' . $_url);
+		log::add('deepstack', 'debug', 'URL ' . $_url);
+		log::add('deepstack', 'debug', 'Image ' . $_image);
 		if ($_reference == '') {
 			$data['image'] = new CURLFile(realpath($_image));
 		} else {
 			$data['image1'] = new CURLFile(realpath($_reference));
 			$data['image2'] = new CURLFile(realpath($_image));
+			log::add('deepstack', 'debug', 'Image reference ' . $_reference);
 		}
 		$request_http = new com_http($_url);
     $request_http->setNoReportError(true);
