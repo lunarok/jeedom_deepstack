@@ -83,11 +83,11 @@ class deepstack extends eqLogic {
 			log::add('deepstack', 'debug', 'Result ' . $return);
 		}*/
 		if ($_reference == '') {
-			$data = 'image=@' . realpath($_image);
+			$data = 'image=@' . $_image;
 		} else {
-			$data = 'image1=@' . realpath($_reference) . '&image2=@' . realpath($_image);
+			$data = "image1=@" . $_reference . "' -F image2='@" . $_image;
 		}
-		$cmd = "curl -X POST " . $_url . " -H 'Content-Type: multipart/form-data' -d '" . $data . "'";
+		$cmd = "curl -L -X POST " . $_url . " -H 'Content-Type: multipart/form-data' -F '" . $data . "'";
 		$result = exec($cmd);
 		log::add('deepstack', 'debug', 'Cmd ' . $cmd);
 		log::add('deepstack', 'debug', 'Result ' . $result);
