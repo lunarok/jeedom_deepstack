@@ -66,7 +66,7 @@ class deepstack extends eqLogic {
 		$request_http = new com_http($_url);
     $request_http->setNoReportError(true);
 		$request_http->setPost($data);
-    $return = $request_http->exec(15,2);
+    $return = $request_http->exec(60,1);
 		log::add('deepstack', 'debug', 'Result ' . $return);
 		return json_decode($return, true);
 	}

@@ -16,7 +16,7 @@
       "name": "Face Recognition",
       "type": "action",
       "subtype": "message",
-      "configuration" : {
+      "display" : {
         "title_placeholder" : "Image",
         "message_disable" : 1
       },
@@ -38,7 +38,7 @@
       "name": "Face Detection",
       "type": "action",
       "subtype": "message",
-      "configuration" : {
+      "display" : {
         "title_placeholder" : "Image",
         "message_disable" : 1
       },
@@ -60,7 +60,7 @@
       "name": "Face Match",
       "type": "action",
       "subtype": "message",
-      "configuration" : {
+      "display" : {
         "title_placeholder" : "Image",
         "message_disable" : 1
       },
@@ -82,7 +82,7 @@
       "name": "Object Detection",
       "type": "action",
       "subtype": "message",
-      "configuration" : {
+      "display" : {
         "title_placeholder" : "Image",
         "message_disable" : 1
       },
@@ -109,7 +109,7 @@
     {
       "name": "Scene Recognition",
       "type": "action",
-      "subtype": "message",
+      "subtype": "display",
       "configuration" : {
         "title_placeholder" : "Image",
         "message_disable" : 1
