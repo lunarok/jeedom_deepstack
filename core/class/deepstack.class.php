@@ -65,11 +65,16 @@ class deepstack extends eqLogic {
 			$data['image2'] = new CURLFile(realpath($_image));
 			log::add('deepstack', 'debug', 'Image reference ' . $_reference);
 		}
-		$request_http = new com_http($_url);
-    $request_http->setNoReportError(true);
-		$request_http->setPost($data);
-    $return = $request_http->exec(60,1);
-		log::add('deepstack', 'debug', 'Result ' . $return);
+		$ch = curl_init();
+    curl_setopt($ch, CURLOPT_URL, $_url);
+		curl_setopt($ch, CURLOPT_HTTPHEADER, array( 'Content-Type: multipart/form-data' ));
+		curl_setopt($ch, CURLOPT_POST, true);
+		curl_setopt($ch, CURLOPT_POSTFIELDS, $data);
+    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+    $return = curl_exec($ch);
+    $httpCode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
+    curl_close($ch);
+		log::add('deepstack', 'debug', 'Result ' . $httpCode . ' ' . $return);
 		return json_decode($return, true);
 	}
 
