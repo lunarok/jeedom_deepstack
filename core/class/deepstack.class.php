@@ -55,7 +55,7 @@ class deepstack extends eqLogic {
 	}
 
 	public function callOpenData($_url, $_image, $_reference = '') {
-		$_url = $this->getConfiguration('url') . $_url;
+		$_url = trim(trim($this->getConfiguration('url')),'/') . $_url;
 		log::add('deepstack', 'debug', 'URL ' . $_url);
 		log::add('deepstack', 'debug', 'Image ' . $_image);
 		if ($_reference == '') {
