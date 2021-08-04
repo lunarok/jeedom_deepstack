@@ -58,11 +58,11 @@ class deepstack extends eqLogic {
 		$_url = trim(trim($this->getConfiguration('url')),'/') . $_url;
 		log::add('deepstack', 'debug', 'URL ' . $_url);
 		log::add('deepstack', 'debug', 'Image ' . $_image);
-		/*if ($_reference == '') {
-			$data['image'] = new CURLFile(realpath($_image));
+		if ($_reference == '') {
+			$data['image'] = '@' . realpath($_image);
 		} else {
-			$data['image1'] = new CURLFile(realpath($_reference));
-			$data['image2'] = new CURLFile(realpath($_image));
+			$data['image1'] = '@' . realpath($_reference);
+			$data['image2'] = '@' . realpath($_image);
 			log::add('deepstack', 'debug', 'Image reference ' . $_reference);
 		}
 		$curl = curl_init();
@@ -82,7 +82,7 @@ class deepstack extends eqLogic {
 		} else {
 			log::add('deepstack', 'debug', 'Result ' . $return);
 		}*/
-		if ($_reference == '') {
+		/*if ($_reference == '') {
 			$data = 'image=@' . $_image;
 		} else {
 			$data = "image1=@" . $_reference . "' -F image2='@" . $_image;
@@ -90,7 +90,7 @@ class deepstack extends eqLogic {
 		$cmd = "curl -L -X POST " . $_url . " -H 'Content-Type: multipart/form-data' -F '" . $data . "'";
 		$result = exec($cmd);
 		log::add('deepstack', 'debug', 'Cmd ' . $cmd);
-		log::add('deepstack', 'debug', 'Result ' . $result);
+		log::add('deepstack', 'debug', 'Result ' . $result);*/
 		return json_decode($return, true);
 	}
 
