@@ -129,7 +129,7 @@ class deepstack extends eqLogic {
 class deepstackCmd extends cmd {
 	public function execute($_options = null) {
 		$eqLogic = $this->getEqLogic();
-		if ($_options['title'] == '') {
+		if (array_key_exists('files', $_options)) {
 			$images = $_options['files'];
 		} else {
 			$images = explode(',',$_options['title']);
