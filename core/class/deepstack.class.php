@@ -59,10 +59,10 @@ class deepstack extends eqLogic {
 		log::add('deepstack', 'debug', 'URL ' . $_url);
 		log::add('deepstack', 'debug', 'Image ' . $_image);
 		if ($_reference == '') {
-			$data['image'] = '@' . realpath($_image);
+			$data['image'] = curl_file_create($_image);
 		} else {
-			$data['image1'] = '@' . realpath($_reference);
-			$data['image2'] = '@' . realpath($_image);
+			$data['image1'] = curl_file_create($_reference);
+			$data['image2'] = curl_file_create($_image);
 			log::add('deepstack', 'debug', 'Image reference ' . $_reference);
 		}
 		$curl = curl_init();
@@ -103,7 +103,7 @@ class deepstack extends eqLogic {
 	public function getObjectDetection($_files) {
 		$data =$this->callOpenData('/v1/vision/detection', $_files[0]);
 		$this->checkAndUpdateCmd('getObjectDetection:success', $data['success']);
-		$this->checkAndUpdateCmd('getObjectDetection:predictions', $data['predictions']);
+		$this->checkAndUpdateCmd('getObjectDetection:predictions', json_encode($data['predictions']));
 	}
 
 	public function getFaceMatch($_files) {
@@ -115,13 +115,13 @@ class deepstack extends eqLogic {
 	public function getFaceDetection($_files) {
 		$data =$this->callOpenData('/v1/vision/face', $_files[0]);
 		$this->checkAndUpdateCmd('getFaceDetection:success', $data['success']);
-		$this->checkAndUpdateCmd('getFaceDetection:predictions', $data['predictions']);
+		$this->checkAndUpdateCmd('getFaceDetection:predictions', json_encode($data['predictions']));
 	}
 
 	public function getFaceRecognition($_files) {
 		$data =$this->callOpenData('/v1/vision/face/recognize', $_files[0]);
 		$this->checkAndUpdateCmd('getFaceRecognition:success', $data['success']);
-		$this->checkAndUpdateCmd('getFaceRecognition:predictions', $data['predictions']);
+		$this->checkAndUpdateCmd('getFaceRecognition:predictions', json_encode($data['predictions']));
 	}
 
 }
