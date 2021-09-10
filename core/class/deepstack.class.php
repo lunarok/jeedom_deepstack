@@ -116,6 +116,11 @@ class deepstack extends eqLogic {
 		$data =$this->callOpenData('/v1/vision/face', $_files[0]);
 		$this->checkAndUpdateCmd('getFaceDetection:success', $data['success']);
 		$this->checkAndUpdateCmd('getFaceDetection:predictions', json_encode($data['predictions']));
+		if (array_key_exists(['confidence'],$data['predictions'][0])) {
+			$this->checkAndUpdateCmd('getFaceDetection:predictions:0:confidence', $data['predictions'][0]['confidence']);
+		} else {
+			$this->checkAndUpdateCmd('getFaceDetection:predictions:0:confidence', 0);
+		}
 	}
 
 	public function getFaceRecognition($_files) {
