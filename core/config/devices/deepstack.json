@@ -35,6 +35,12 @@
       "logicalId": "getFaceDetection:predictions"
     },
     {
+      "name": "Face Detection : Predictions, Confidence",
+      "type": "info",
+      "subtype": "numeric",
+      "logicalId": "getFaceDetection:predictions:0:confidence"
+    },
+    {
       "name": "Face Detection",
       "type": "action",
       "subtype": "message",
