@@ -13,6 +13,22 @@
       "logicalId": "getFaceRecognition:predictions"
     },
     {
+      "name": "Face Recognition : Predictions - Recherche Personne",
+      "type": "action",
+      "subtype": "message",
+      "display" : {
+        "title_placeholder" : "Personne à chercher",
+        "message_disable" : 1
+      },
+      "logicalId": "getFaceRecognition:predictions:search"
+    },
+    {
+      "name": "Face Recognition : Predictions - Recherche Résultat",
+      "type": "info",
+      "subtype": "binary",
+      "logicalId": "getFaceRecognition:predictions:result"
+    },
+    {
       "name": "Face Recognition",
       "type": "action",
       "subtype": "message",
@@ -83,6 +99,22 @@
       "type": "info",
       "subtype": "string",
       "logicalId": "getObjectDetection:predictions"
+    },
+    {
+      "name": "Object Detection : Predictions - Recherche Objet",
+      "type": "action",
+      "subtype": "message",
+      "display" : {
+        "title_placeholder" : "Objet à chercher",
+        "message_disable" : 1
+      },
+      "logicalId": "getObjectDetection:predictions:search"
+    },
+    {
+      "name": "Object Detection : Predictions - Recherche Résultat",
+      "type": "info",
+      "subtype": "binary",
+      "logicalId": "getObjectDetection:predictions:result"
     },
     {
       "name": "Object Detection",
