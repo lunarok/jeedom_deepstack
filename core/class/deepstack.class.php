@@ -128,6 +128,24 @@ class deepstack extends eqLogic {
 		$this->checkAndUpdateCmd('getFaceRecognition:success', $data['success']);
 		$this->checkAndUpdateCmd('getFaceRecognition:predictions', json_encode($data['predictions']));
 	}
+	
+	public function searchRecognition($_search) {
+		$cmd = cmd::cmd::byEqLogicIdAndLogicalId($this->getId(),'getFaceRecognition:predictions');
+		if (strpos($cmd->execCmd(), $_search) !== false) {
+			$this->checkAndUpdateCmd('getFaceRecognition:predictions:result', 1);
+		} else {
+			$this->checkAndUpdateCmd('getFaceRecognition:predictions:result', 0);
+		}
+	}
+	
+	public function searchObject($_search) {
+		$cmd = cmd::cmd::byEqLogicIdAndLogicalId($this->getId(),'getObjectDetection:predictions');
+		if (strpos($cmd->execCmd(), $_search) !== false) {
+			$this->checkAndUpdateCmd('getObjectDetection:predictions:result', 1);
+		} else {
+			$this->checkAndUpdateCmd('getObjectDetection:predictions:result', 0);
+		}
+	}
 
 }
 
@@ -154,6 +172,12 @@ class deepstackCmd extends cmd {
 				break;
 			case 'getSceneRecognition':
 				$eqLogic->getSceneRecognition($images);
+				break;
+			case 'getFaceRecognition:predictions:search':
+				$eqLogic->searchRecognition($_options['title']);
+				break;
+			case 'getObjectDetection:predictions:search':
+				$eqLogic->searchObject($_options['title']);
 				break;
 		}
 	}
