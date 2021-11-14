@@ -130,7 +130,7 @@ class deepstack extends eqLogic {
 	}
 	
 	public function searchRecognition($_search) {
-		$cmd = cmd::cmd::byEqLogicIdAndLogicalId($this->getId(),'getFaceRecognition:predictions');
+		$cmd = cmd::byEqLogicIdAndLogicalId($this->getId(),'getFaceRecognition:predictions');
 		if (strpos($cmd->execCmd(), $_search) !== false) {
 			$this->checkAndUpdateCmd('getFaceRecognition:predictions:result', 1);
 		} else {
@@ -139,7 +139,7 @@ class deepstack extends eqLogic {
 	}
 	
 	public function searchObject($_search) {
-		$cmd = cmd::cmd::byEqLogicIdAndLogicalId($this->getId(),'getObjectDetection:predictions');
+		$cmd = cmd::byEqLogicIdAndLogicalId($this->getId(),'getObjectDetection:predictions');
 		if (strpos($cmd->execCmd(), $_search) !== false) {
 			$this->checkAndUpdateCmd('getObjectDetection:predictions:result', 1);
 		} else {
