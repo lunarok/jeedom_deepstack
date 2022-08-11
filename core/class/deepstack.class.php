@@ -50,6 +50,29 @@ class deepstack extends eqLogic {
 		}
 	}
 
+	public static function dependancy_info() {
+		$return = array();
+		$return['progress_file'] = jeedom::getTmpFolder(__CLASS__) . '/dependancy';
+		if(@file_exists($return['progress_file'])) {
+		  $return['state'] = 'in_progress';
+		} else {
+			$return['state'] = 'ok';
+			$cmd = "sudo pip3 list | grep deepface";
+			unset($output);
+			exec($cmd, $output, $return_var);
+			if ($return_var || $output[0] == "") {
+			  $return['state'] = 'nok';
+			}
+		}
+		return $return;
+	  }
+
+	public static function dependancy_install() {
+		log::remove(__CLASS__ .'_dep');
+		config::save('lastDependancyInstallTime', date('Y-m-d H:i:s'), __CLASS__);
+		passthru('sudo pip install deepface > ' . log::getPathToLog(__CLASS__ . '_dep') . ' 2>&1 &');
+	  }
+
 	public function postSave() {
 		$this->loadCmdFromConf('deepstack');
 	}
